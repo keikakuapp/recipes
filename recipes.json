@@ -178,12 +178,12 @@
                 },
                 {
                     "id": 11,
-                    "amt": 1,
+                    "amt": 2,
                     "comments": ""
                 },
                 {
                     "id": 13,
-                    "amt": 1,
+                    "amt": 2,
                     "comments": ""
                 }
             ],
@@ -210,22 +210,22 @@
             "ingredients": [
                 {
                     "id": 17,
-                    "amt": 1,
+                    "amt": 0.5,
                     "comments": "Can use salt reduced if desired"
                 },
                 {
                     "id": 18,
-                    "amt": 0,
+                    "amt": 0.25,
                     "comments": ""
                 },
                 {
                     "id": 19,
-                    "amt": 0,
+                    "amt": 0.25,
                     "comments": ""
                 },
                 {
                     "id": 20,
-                    "amt": 0,
+                    "amt": 0.25,
                     "comments": "Can substitute with regular sugar"
                 },
                 {
@@ -271,12 +271,12 @@
                 },
                 {
                     "id": 26,
-                    "amt": 0,
+                    "amt": 0.25,
                     "comments": ""
                 },
                 {
                     "id": 4,
-                    "amt": 0,
+                    "amt": 0.5,
                     "comments": "sliced"
                 },
                 {
@@ -290,7 +290,7 @@
                     "comments": "(in juice)"
                 },
                 {
-                    "id": 10,
+                    "id": 12,
                     "amt": 1,
                     "comments": ""
                 },
@@ -316,7 +316,7 @@
                 },
                 {
                     "id": 16,
-                    "amt": 1,
+                    "amt": 1.5,
                     "comments": ""
                 }
             ],

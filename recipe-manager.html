@@ -337,7 +337,7 @@ function saveRecipe()
         let oIngredient=cIngredients[i];
         recipe.ingredients.push({
             id: parseInt(oIngredient.querySelector('select').value),
-            amt: parseInt(oIngredient.querySelector('input[name="amt"]').value),
+            amt: parseFloat(oIngredient.querySelector('input[name="amt"]').value),
             comments: oIngredient.querySelector('input[name="comments"]').value
         });
     }
