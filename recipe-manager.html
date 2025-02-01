@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Manager</title>
+    <style type="text/css">
+
+body
+{
+    margin: 0;
+}
+body > div.panel
+{
+    position: absolute;
+    top: 0;
+    height: 100%;
+    overflow-y: auto;
+    border-right: 1px solid black;
+}
+body > div.ingredients
+{
+    left: 0;
+    width: 25%;
+}
+body > div.recipes
+{
+    left: 25%;
+    width: 25%;
+}
+body > div.recipe-detail, body > div.ingredient-detail
+{
+    left: 50%;
+    width: 50%;
+    display: none;
+    border-right: none;
+}
+body > div.import
+{
+    position: absolute;
+    top: 20%;
+    left: 20%;
+    width: 60%;
+    height: 60%;
+    display: none;
+    border: 1px solid black;
+    background-color: white;
+}
+button.import
+{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+textarea.recipe-data
+{
+    width: calc(100% - 5px);
+    height: calc(100% - 170px);
+}
+
+div.templates
+{
+    display: none;
+}
+
+input[type="number"]
+{
+    width: 40px;
+}
+li > input.full-input
+{
+    width: calc(100% - 2em);
+}
+
+    </style>
+</head>
+<body>
+
+<div class="panel ingredients">
+    <button onclick="newIngredient()">Add</button>
+</div>
+<div class="panel recipes">
+    <button onclick="newRecipe()">Add</button>
+</div>
+<div class="panel recipe-detail">
+    <input type="hidden" name="id" id="recipe-id" value="" />
+    <label for="recipe-name">Name</label>
+    <input type="text" name="name" id="recipe-name" value="" />
+    <label for="serves">Serves</label>
+    <input type="number" name="serves" id="serves" value="" /><br />
+    <p>Ingredients <button onclick="addIngredientToRecipe(null)">+</button></p>
+    <ul class="ingredients">
+    </ul>
+    <p>Steps <button onclick="addStep(null)">+</button></p>
+    <ol class="steps">
+    </ol>
+    <p>Notes <button onclick="addNote(null)">+</button></p>
+    <ul class="notes">
+    </ul>
+    <button onclick="saveRecipe()">Save</button>
+    <button onclick="hideRecipe()">Cancel</button>
+</div>
+<div class="panel ingredient-detail">
+    <input type="hidden" name="id" id="ingredient-id" value="" />
+    <label for="ingredient-name">Name</label>
+    <input type="text" name="name" id="ingredient-name" value="" /><br />
+    <label for="type">Type</label>
+    <select name="type" id="type">
+        <option></option>
+        <option value="kg">KG</option>
+        <option value="tsp">Teaspoon</option>
+        <option value="tbsp">Tablespoon</option>
+        <option value="Cup">Cup</option>
+        <option value="qty">Qty</option>
+    </select>
+
+    <button onclick="saveIngredient()">Save</button>
+    <button onclick="hideIngredient()">Cancel</button>
+</div>
+
+<div class="import">
+<p>Below is the current state of the recipe data. Copy to export,
+paste and click Import button to import.</p>
+<textarea class="recipe-data">{
+    "ingredients": [],
+    "recipes": []
+}</textarea>
+<button onclick="init(true)">Import</button>
+</div>
+<button class="import" onclick="triggerIE()">Import/Export</button>
+
+<div class="templates">
+<select name="ingredient" class="ingredient"></select>
+
+<ul class="ingredient-item">
+    <li>
+        <select name="id"></select>
+        <label for="amt">Amount:</label> <input type="number" min="0.0" name="amt" /><br>
+        <label for="comments">Comments:</label> <input type="text" name="comments" />
+    </li>
+</ul>
+<ul class="step-item">
+    <li><input class="full-input" name="step" /></li>
+</ul>
+<ul class="note-item">
+    <li><input class="full-input" name="note" /></li>
+</ul>
+
+</div>
+
+<script type="text/javascript">
+
+let recipeData={
+    "ingredients": [],
+    "recipes": []
+}
+
+function init(bImport)
+{
+    document.querySelector('div.import').style.display="";
+    if (bImport === true)
+    {
+        recipeData=JSON.parse(document.querySelector('textarea.recipe-data').value);
+        localStorage.setItem('recipeData', document.querySelector('textarea.recipe-data').value);
+    }
+    else if (localStorage.getItem('recipeData') !== null)
+    {
+        recipeData=JSON.parse(localStorage.getItem('recipeData'));
+    }
+    console.log(recipeData);
+    if (recipeData.ingredients.length > 0)
+    {
+        let ingredientSelect = document.querySelector('div.templates select.ingredient');
+        ingredientSelect.innerHTML = "<option></option>";
+        
+        let ingredientDiv = document.querySelector('body > div.ingredients');
+        let ingredientBtn = ingredientDiv.querySelector('button');
+        ingredientDiv.innerHTML='';
+        ingredientDiv.appendChild(ingredientBtn);
+        
+        for (let i = 0; i < recipeData.ingredients.length; i++)
+        {
+            let ingredient=recipeData.ingredients[i];
+            ingredientSelect.appendChild(new Option(`${ingredient.name} (${ingredient.type})`, i));
+            
+            let oDiv=document.createElement('div');
+            oDiv.onclick=editIngredient.bind(null, i);
+            oDiv.appendChild(document.createTextNode(ingredient.name));
+            oDiv.appendChild(document.createTextNode(" ("));
+            oDiv.appendChild(document.createTextNode(ingredient.type));
+            oDiv.appendChild(document.createTextNode(")"));
+            ingredientDiv.appendChild(oDiv);
+        }
+    }
+    if (recipeData.recipes.length > 0)
+    {
+        let recipeDiv = document.querySelector('body > div.recipes');
+        let recipeBtn = recipeDiv.querySelector('button');
+        recipeDiv.innerHTML='';
+        recipeDiv.appendChild(recipeBtn);
+        
+        for (let i = 0; i < recipeData.recipes.length; i++)
+        {
+            let recipe = recipeData.recipes[i];
+            let oDiv=document.createElement('div');
+            oDiv.onclick=editRecipe.bind(null, i);
+            oDiv.appendChild(document.createTextNode(recipe.name));
+            recipeDiv.appendChild(oDiv);
+        }
+    }
+}
+function triggerIE()
+{
+    document.querySelector('div.import').style.display="block";
+    document.querySelector('textarea.recipe-data').value=JSON.stringify(recipeData, null, 4);
+}
+
+function editIngredient(id)
+{
+    let ingredient = recipeData.ingredients[id];
+    let form = document.querySelector('body > div.ingredient-detail');
+    form.querySelector('#ingredient-name').value=ingredient.name;
+    form.querySelector('#type').value=ingredient.type;
+    form.querySelector('#ingredient-id').value=id;
+    showIngredient();
+}
+function newIngredient()
+{
+    let form = document.querySelector('body > div.ingredient-detail');
+    form.querySelector('#ingredient-name').value="";
+    form.querySelector('#type').value="";
+    form.querySelector('#ingredient-id').value="";
+    showIngredient();
+}
+function showIngredient()
+{
+    document.querySelector('body > div.ingredient-detail').style.display="block";
+    document.querySelector('button.import').style.display="none";
+}
+function hideIngredient()
+{
+    document.querySelector('body > div.ingredient-detail').style.display="";
+    document.querySelector('button.import').style.display="";
+}
+function saveIngredient()
+{
+    let form = document.querySelector('body > div.ingredient-detail');
+    let id = form.querySelector('#ingredient-id').value;
+    let ingredient={
+        name: form.querySelector('#ingredient-name').value,
+        type: form.querySelector('#type').value
+    };
+    if (id === "")
+    {
+        recipeData.ingredients.push(ingredient);
+    }
+    else
+    {
+        recipeData.ingredients[parseInt(id)]=ingredient;
+    }
+    storeRecipeData();
+    hideIngredient();
+}
+
+function cloneIngredients(sName, value)
+{
+    let result=document.querySelector('div.templates select.ingredient').cloneNode(true);
+    result.name=sName;
+    if (value !== null)
+    {
+        result.value=value;
+    }
+    return result;
+}
+
+function editRecipe(id)
+{
+    let recipe = recipeData.recipes[id];
+    let form = document.querySelector('body > div.recipe-detail');
+    form.querySelector('input[name="id"]').value=id;
+    form.querySelector('input[name="name"]').value=recipe.name;
+    form.querySelector('input[name="serves"]').value=recipe.serves;
+    document.querySelector('.recipe-detail .ingredients').innerHTML="";
+    for (let i = 0; i < recipe.ingredients.length; i++)
+    {
+        addIngredientToRecipe(recipe.ingredients[i]);
+    }
+    document.querySelector('.recipe-detail .steps').innerHTML="";
+    for (let i = 0; i < recipe.steps.length; i++)
+    {
+        addStep(recipe.steps[i]);
+    }
+    document.querySelector('.recipe-detail .notes').innerHTML="";
+    for (let i = 0; i < recipe.notes.length; i++)
+    {
+        addNote(recipe.notes[i]);
+    }
+    showRecipe();
+}
+function newRecipe()
+{
+    let form = document.querySelector('body > div.recipe-detail');
+    form.querySelector('input[name="id"]').value="";
+    form.querySelector('input[name="name"]').value="";
+    document.querySelector('.recipe-detail .ingredients').innerHTML="";
+    document.querySelector('.recipe-detail .steps').innerHTML="";
+    document.querySelector('.recipe-detail .notes').innerHTML="";
+    showRecipe();
+}
+function showRecipe()
+{
+    document.querySelector('body > div.recipe-detail').style.display="block";
+    document.querySelector('button.import').style.display="none";
+}
+function hideRecipe()
+{
+    document.querySelector('body > div.recipe-detail').style.display="";
+    document.querySelector('button.import').style.display="";
+}
+
+function saveRecipe()
+{
+    let form = document.querySelector('body > div.recipe-detail');
+    let id = form.querySelector('input[name="id"]').value;
+    let recipe={
+        "name": form.querySelector('input[name="name"]').value,
+        "ingredients": [],
+        "steps": [],
+        "notes": [],
+        "serves": parseInt(form.querySelector('input[name="serves"]').value)
+    };
+    
+    let cIngredients=form.querySelectorAll('ul.ingredients li');
+    for (let i = 0; i < cIngredients.length; i++)
+    {
+        let oIngredient=cIngredients[i];
+        recipe.ingredients.push({
+            id: parseInt(oIngredient.querySelector('select').value),
+            amt: parseInt(oIngredient.querySelector('input[name="amt"]').value),
+            comments: oIngredient.querySelector('input[name="comments"]').value
+        });
+    }
+    let cSteps=form.querySelectorAll('ol.steps li');
+    for (let i = 0; i < cSteps.length; i++)
+    {
+        recipe.steps.push(cSteps[i].querySelector('input').value);
+    }
+    let cNotes=form.querySelectorAll('ul.notes li');
+    for (let i = 0; i < cNotes.length; i++)
+    {
+        recipe.notes.push(cNotes[i].querySelector('input').value);
+    }
+    if (id === "")
+    {
+        recipeData.recipes.push(recipe);
+    }
+    else
+    {
+        recipeData.recipes[parseInt(id)]=recipe;
+    }
+    storeRecipeData();
+    hideRecipe();
+}
+
+function addIngredientToRecipe(data)
+{
+    let oLi = document.querySelector('ul.ingredient-item li').cloneNode(true);
+    oLi.replaceChild(cloneIngredients('id', data !== null ? data.id : null), oLi.querySelector('select[name="id"]'));
+    if (data !== null)
+    {
+        oLi.querySelector('input[name="amt"]').value=data.amt;
+        oLi.querySelector('input[name="comments"]').value=data.comments;
+    }
+    document.querySelector('.recipe-detail .ingredients').appendChild(oLi);
+}
+function addStep(data)
+{
+    let oLi = document.querySelector('ul.step-item li').cloneNode(true);
+    oLi.querySelector('input[name="step"]').value=data ?? '';
+    document.querySelector('.recipe-detail .steps').appendChild(oLi);
+}
+function addNote(data)
+{
+    let oLi = document.querySelector('ul.note-item li').cloneNode(true);
+    oLi.querySelector('input[name="note"]').value=data ?? '';
+    document.querySelector('.recipe-detail .notes').appendChild(oLi);
+}
+
+function storeRecipeData()
+{
+    document.querySelector('textarea.recipe-data').value=JSON.stringify(recipeData, null, 4);
+    init(true);
+}
+
+window.addEventListener("load", init.bind(null, false));
+</script>
+
+</body>
+</html>

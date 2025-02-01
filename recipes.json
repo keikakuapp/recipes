@@ -1,0 +1,336 @@
+{
+    "ingredients": [
+        {
+            "name": "Thick Beef Sausages",
+            "type": "kg"
+        },
+        {
+            "name": "Butter/Margarine",
+            "type": "kg"
+        },
+        {
+            "name": "Butter/Margarine",
+            "type": "tsp"
+        },
+        {
+            "name": "Butter/Margarine",
+            "type": "tbsp"
+        },
+        {
+            "name": "Onion",
+            "type": "qty"
+        },
+        {
+            "name": "Curry Powder",
+            "type": "tsp"
+        },
+        {
+            "name": "Beef Stock",
+            "type": "cup"
+        },
+        {
+            "name": "Cornflour",
+            "type": "tsp"
+        },
+        {
+            "name": "Cornflour",
+            "type": "tbsp"
+        },
+        {
+            "name": "Cornflour",
+            "type": "cup"
+        },
+        {
+            "name": "Water",
+            "type": "tsp"
+        },
+        {
+            "name": "Water",
+            "type": "tbsp"
+        },
+        {
+            "name": "Water",
+            "type": "cup"
+        },
+        {
+            "name": "White Rice",
+            "type": "cup"
+        },
+        {
+            "name": "Potatoes",
+            "type": "qty"
+        },
+        {
+            "name": "Soy Sauce",
+            "type": "tsp"
+        },
+        {
+            "name": "Soy Sauce",
+            "type": "tbsp"
+        },
+        {
+            "name": "Soy Sauce",
+            "type": "Cup"
+        },
+        {
+            "name": "Chicken Stock",
+            "type": "Cup"
+        },
+        {
+            "name": "Mirin",
+            "type": "Cup"
+        },
+        {
+            "name": "Caster Sugar",
+            "type": "Cup"
+        },
+        {
+            "name": "Caster Sugar",
+            "type": "tbsp"
+        },
+        {
+            "name": "Caster Sugar",
+            "type": "tsp"
+        },
+        {
+            "name": "Chicken Breast",
+            "type": "kg"
+        },
+        {
+            "name": "Cubed pork",
+            "type": "kg"
+        },
+        {
+            "name": "Capsicum",
+            "type": "qty"
+        },
+        {
+            "name": "Bicarbonate of Soda",
+            "type": "tsp"
+        },
+        {
+            "name": "Egg",
+            "type": "qty"
+        },
+        {
+            "name": "Can Of Pineapple Pieces",
+            "type": "qty"
+        },
+        {
+            "name": "Tomato Sauce",
+            "type": "tsp"
+        },
+        {
+            "name": "Tomato Sauce",
+            "type": "tbsp"
+        },
+        {
+            "name": "Sugar",
+            "type": "tsp"
+        },
+        {
+            "name": "Sugar",
+            "type": "tbsp"
+        },
+        {
+            "name": "Sugar",
+            "type": "Cup"
+        }
+    ],
+    "recipes": [
+        {
+            "name": "Sausage Curry",
+            "ingredients": [
+                {
+                    "id": 0,
+                    "amt": 1,
+                    "comments": "can substitute pork sausages if desired"
+                },
+                {
+                    "id": 2,
+                    "amt": 2,
+                    "comments": ""
+                },
+                {
+                    "id": 4,
+                    "amt": 1,
+                    "comments": "or half a large onion - cut as finely as desired"
+                },
+                {
+                    "id": 14,
+                    "amt": 2,
+                    "comments": "large, diced"
+                },
+                {
+                    "id": 5,
+                    "amt": 1,
+                    "comments": "or as spicy as you want it"
+                },
+                {
+                    "id": 6,
+                    "amt": 4,
+                    "comments": "dissolved in the sausage water and hot water up to 1L"
+                },
+                {
+                    "id": 8,
+                    "amt": 1,
+                    "comments": ""
+                },
+                {
+                    "id": 11,
+                    "amt": 1,
+                    "comments": ""
+                },
+                {
+                    "id": 13,
+                    "amt": 1,
+                    "comments": ""
+                }
+            ],
+            "steps": [
+                "Prick sausages and place in saucepan with enough water to cover, add a pinch of salt",
+                "Bring to boil and simmer gently for ten minutes. Put on water for rice and bring it to a boil",
+                "Remove sausages from the water. Cut up sausages and remove the skin. Set sausages and sausage water aside",
+                "Add stock and curry powder to sausage water, bring up to one litre with hot water",
+                "Melt butter/margarine in saucepan and fry onions until soft and brown",
+                "Add curried stock to onions, bring to the boil",
+                "Rice water should be at the boil by now, add rice and stir reguarly on medium heat",
+                "Add sausages and potatoes and simmer for ten minutes or until potatoes are soft",
+                "Blend cornflour with water and add to sausages, stirring until the mixture thickens",
+                "Serve with rice"
+            ],
+            "notes": [
+                "You may need more than one tablespoon of cornflour to thicken the mix",
+                "If you use liquid stock, keep the sausage water for mixing the cornflour"
+            ],
+            "serves": 4
+        },
+        {
+            "name": "Chicken Yakitori on Rice",
+            "ingredients": [
+                {
+                    "id": 17,
+                    "amt": 1,
+                    "comments": "Can use salt reduced if desired"
+                },
+                {
+                    "id": 18,
+                    "amt": 0,
+                    "comments": ""
+                },
+                {
+                    "id": 19,
+                    "amt": 0,
+                    "comments": ""
+                },
+                {
+                    "id": 20,
+                    "amt": 0,
+                    "comments": "Can substitute with regular sugar"
+                },
+                {
+                    "id": 23,
+                    "amt": 1,
+                    "comments": "cut into small pieces"
+                },
+                {
+                    "id": 4,
+                    "amt": 1,
+                    "comments": "One small or half a big one, diced"
+                }
+            ],
+            "steps": [
+                "Combine soy sauce, stock, mirin and sugar in saucepan over medium-high heat and bring to the boil",
+                "Reduce heat to medium and simmer for 5 minutes.",
+                "Fry the onion with your choice of oil until brown, then add chicken and cook unto cooked through and brown",
+                "Add sauce mixture and simmer until sauce reduces",
+                "Serve with rice"
+            ],
+            "notes": [
+                "This started out as a kebobs-style recipe until my now ex and I converted it into a stir fry"
+            ],
+            "serves": 4
+        },
+        {
+            "name": "Sweet and Sour Pork",
+            "ingredients": [
+                {
+                    "id": 24,
+                    "amt": 1,
+                    "comments": ""
+                },
+                {
+                    "id": 9,
+                    "amt": 1,
+                    "comments": "(for coating marinated meat"
+                },
+                {
+                    "id": 27,
+                    "amt": 1,
+                    "comments": "(yolk only)"
+                },
+                {
+                    "id": 26,
+                    "amt": 0,
+                    "comments": ""
+                },
+                {
+                    "id": 4,
+                    "amt": 0,
+                    "comments": "sliced"
+                },
+                {
+                    "id": 25,
+                    "amt": 1,
+                    "comments": "cut into large pieces"
+                },
+                {
+                    "id": 28,
+                    "amt": 1,
+                    "comments": "(in juice)"
+                },
+                {
+                    "id": 10,
+                    "amt": 1,
+                    "comments": ""
+                },
+                {
+                    "id": 30,
+                    "amt": 2,
+                    "comments": ""
+                },
+                {
+                    "id": 18,
+                    "amt": 1,
+                    "comments": "(1 cube or 1 tsp)"
+                },
+                {
+                    "id": 8,
+                    "amt": 1,
+                    "comments": ""
+                },
+                {
+                    "id": 31,
+                    "amt": 2,
+                    "comments": ""
+                },
+                {
+                    "id": 16,
+                    "amt": 1,
+                    "comments": ""
+                }
+            ],
+            "steps": [
+                "Mix sugar, soy sauce, egg yolk, and bicarb to make marinade. Marinate meat for at least an hour, stirring occasionally to keep meat coated",
+                "Remove meat and leave any leftover marinade",
+                "Toss meat in cornflour",
+                "Cook meat in oil until brown and remove from pan",
+                "Cook onion and capsicum in residual oil and add pineapple juice from can",
+                "Mix leftover marinade, tomato sauce, water, chicken stock and cornflour and add to pan",
+                "Add cooked meat, heat through and serve on rice or noodles"
+            ],
+            "notes": [],
+            "serves": 4
+        }
+    ]
+}
